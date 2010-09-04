@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Module fax_put</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module fax_put</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>The functions in this file place packages and artifacts into a remote repository.
+<p>Copyright © (C) 2007, Martin Logan, Eric Merritt, Erlware</p>
+
+<p><b>Authors:</b> Martin Logan.</p>
+
+<h2><a name="description">Description</a></h2>The functions in this file place packages and artifacts into a remote repository.
+  
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#put_binary_app_package-6">put_binary_app_package/6</a></td><td>put a binary application package onto a remote repository.</td></tr>
+<tr><td valign="top"><a href="#put_checksum_file-7">put_checksum_file/7</a></td><td>put a checksum file onto a remote repository.</td></tr>
+<tr><td valign="top"><a href="#put_dot_app_file-6">put_dot_app_file/6</a></td><td>put a .app onto a remote repository.</td></tr>
+<tr><td valign="top"><a href="#put_dot_rel_file-6">put_dot_rel_file/6</a></td><td>put a .rel onto a remote repository.</td></tr>
+<tr><td valign="top"><a href="#put_erts_checksum_file-4">put_erts_checksum_file/4</a></td><td>put a checksum file for an erts package onto a remote repository.</td></tr>
+<tr><td valign="top"><a href="#put_erts_package-4">put_erts_package/4</a></td><td>put an erts archive onto a remote repository.</td></tr>
+<tr><td valign="top"><a href="#put_erts_signature_file-4">put_erts_signature_file/4</a></td><td>put a signature file for an erts package onto a remote repository.</td></tr>
+<tr><td valign="top"><a href="#put_generic_app_package-6">put_generic_app_package/6</a></td><td>put a genric, i.e platform independent, application package onto a remote repository.</td></tr>
+<tr><td valign="top"><a href="#put_release_control_file-6">put_release_control_file/6</a></td><td>put a control onto a remote repository.</td></tr>
+<tr><td valign="top"><a href="#put_release_package-6">put_release_package/6</a></td><td>put a release package onto a remote repository.</td></tr>
+<tr><td valign="top"><a href="#put_signature_file-7">put_signature_file/7</a></td><td>put a signature file onto a remote repository.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="put_binary_app_package-6">put_binary_app_package/6</a></h3>
+<div class="spec">
+<p><tt>put_binary_app_package(Repos, ErtsVsn, AppName, AppVsn, Payload, Timeout) -&gt; {ok, Urls} | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Timeout = integer()</tt></li>
+</ul></p>
+</div><p>put a binary application package onto a remote repository.</p>
+
+<h3 class="function"><a name="put_checksum_file-7">put_checksum_file/7</a></h3>
+<div class="spec">
+<p><tt>put_checksum_file(Repos, ErtsVsn, Side, PackageName, PackageVsn, Payload, Timeout) -&gt; {ok, Urls} | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Timeout = integer()</tt></li>
+</ul></p>
+</div><p>put a checksum file onto a remote repository.</p>
+
+<h3 class="function"><a name="put_dot_app_file-6">put_dot_app_file/6</a></h3>
+<div class="spec">
+<p><tt>put_dot_app_file(Repos, ErtsVsn, AppName, AppVsn, Payload, Timeout) -&gt; {ok, Urls} | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Timeout = integer()</tt></li>
+</ul></p>
+</div><p>put a .app onto a remote repository.</p>
+
+<h3 class="function"><a name="put_dot_rel_file-6">put_dot_rel_file/6</a></h3>
+<div class="spec">
+<p><tt>put_dot_rel_file(Repos, ErtsVsn, RelName, RelVsn, Payload, Timeout) -&gt; {ok, Urls} | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Timeout = integer()</tt></li>
+</ul></p>
+</div><p>put a .rel onto a remote repository.</p>
+
+<h3 class="function"><a name="put_erts_checksum_file-4">put_erts_checksum_file/4</a></h3>
+<div class="spec">
+<p><tt>put_erts_checksum_file(Repos, ErtsVsn, Payload, Timeout) -&gt; {ok, Urls} | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Timeout = integer()</tt></li>
+</ul></p>
+</div><p>put a checksum file for an erts package onto a remote repository.</p>
+
+<h3 class="function"><a name="put_erts_package-4">put_erts_package/4</a></h3>
+<div class="spec">
+<p><tt>put_erts_package(Repos, ErtsVsn, Payload, Timeout) -&gt; {ok, Urls} | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Timeout = integer()</tt></li>
+</ul></p>
+</div><p>put an erts archive onto a remote repository.</p>
+
+<h3 class="function"><a name="put_erts_signature_file-4">put_erts_signature_file/4</a></h3>
+<div class="spec">
+<p><tt>put_erts_signature_file(Repos, ErtsVsn, Payload, Timeout) -&gt; {ok, Urls} | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Timeout = integer()</tt></li>
+</ul></p>
+</div><p>put a signature file for an erts package onto a remote repository.</p>
+
+<h3 class="function"><a name="put_generic_app_package-6">put_generic_app_package/6</a></h3>
+<div class="spec">
+<p><tt>put_generic_app_package(Repos, ErtsVsn, AppName, AppVsn, Payload, Timeout) -&gt; {ok, Urls} | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Timeout = integer()</tt></li>
+</ul></p>
+</div><p>put a genric, i.e platform independent, application package onto a remote repository.</p>
+
+<h3 class="function"><a name="put_release_control_file-6">put_release_control_file/6</a></h3>
+<div class="spec">
+<p><tt>put_release_control_file(Repos, ErtsVsn, RelName, RelVsn, Payload, Timeout) -&gt; {ok, Urls} | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Timeout = integer()</tt></li>
+</ul></p>
+</div><p>put a control onto a remote repository.</p>
+
+<h3 class="function"><a name="put_release_package-6">put_release_package/6</a></h3>
+<div class="spec">
+<p><tt>put_release_package(Repos, ErtsVsn, RelName, RelVsn, Payload, Timeout) -&gt; {ok, Urls} | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Timeout = integer()</tt></li>
+</ul></p>
+</div><p>put a release package onto a remote repository.</p>
+
+<h3 class="function"><a name="put_signature_file-7">put_signature_file/7</a></h3>
+<div class="spec">
+<p><tt>put_signature_file(Repos, ErtsVsn, Side, PackageName, PackageVsn, Payload, Timeout) -&gt; {ok, Urls} | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Timeout = integer()</tt></li>
+</ul></p>
+</div><p>put a signature file onto a remote repository.</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, May 10 2009, 10:18:47.</i></p>
+</body>
+</html>

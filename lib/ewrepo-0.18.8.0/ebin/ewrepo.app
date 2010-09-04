@@ -1,0 +1,13 @@
+{application, ewrepo,
+ [{description, "Erlang repository interface"},
+  {vsn, "0.18.8.0"},
+  {modules, [ewr_fetch,
+             ewr_depends,
+             ewr_deps_engine,   
+             ewr_resolver,
+             ewr_repo_paths,
+             ewr_repo_dav,
+             ewr_util]},
+  {registered, []},
+  {versioned_dependencies, [{ibrowse, "1.2.4.1", gte}]},
+  {applications, [kernel, stdlib, ibrowse, ewlib]}]}.

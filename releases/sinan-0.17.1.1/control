@@ -1,0 +1,5 @@
+{control,"sinan",
+         [{package_owner,"Eric Merritt"},
+          {package_owner_email,"ericbmerritt@gmail.com"},
+          {categories,["tool"]},
+          {description,"Erlang Build System"}]}.

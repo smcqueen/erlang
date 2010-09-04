@@ -1,0 +1,14 @@
+project : {
+   name : $project_name$
+   vsn  : "$project_version$"
+},
+
+build_dir : _build,
+
+ignore_dirs : ["_",
+               "."],
+
+ignore_apps : [],
+
+
+

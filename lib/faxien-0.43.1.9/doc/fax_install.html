@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Module fax_install</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module fax_install</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#types">Data Types</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>Handles fetching packages from the remote repository and
+        placing them in the erlware repo.
+<p>Copyright © Erlware</p>
+
+<p><b>Authors:</b> Martin Logan.</p>
+
+<h2><a name="description">Description</a></h2>Handles fetching packages from the remote repository and
+        placing them in the erlware repo.
+  
+<h2><a name="types">Data Types</a></h2>
+
+<h3 class="typedecl"><a name="type-erts_prompt">erts_prompt()</a></h3>
+<p><tt>erts_prompt() = bool()</tt></p>
+<p>indicate whether or not to prompt upon finding a package outside of the target erts vsn.</p>
+
+<h3 class="typedecl"><a name="type-force">force()</a></h3>
+<p><tt>force() = bool()</tt></p>
+<p>Indicates whether an existing app is to be overwritten with or without user conscent.</p>
+
+<h3 class="typedecl"><a name="type-options">options()</a></h3>
+<p><tt>options() = [Option]</tt>
+<ul class="definitions"><li><tt>Options = {force, <a href="#type-force">force()</a>} | {erts_prompt, <a href="#type-erts_prompt">erts_prompt()</a>} | {erts_policy, ErtsPolicy}</tt></li>
+<li><tt>ErtsPolicy = strict | loose</tt></li>
+</ul></p>
+
+
+<h3 class="typedecl"><a name="type-target_erts_vsns">target_erts_vsns()</a></h3>
+<p><tt>target_erts_vsns() = [TargetErtsVsn] | TargetErtsVsn</tt>
+<ul class="definitions"><li><tt>TargetErtsVsn = string()</tt></li>
+</ul></p>
+
+
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#fetch_latest_remote_application-6">fetch_latest_remote_application/6</a></td><td>   
+Fetch the the highest version found of an application package from a repository.</td></tr>
+<tr><td valign="top"><a href="#fetch_latest_remote_release-6">fetch_latest_remote_release/6</a></td><td>
+   Fetch the latest version found of a release package from a repository and place it in the specified directory.</td></tr>
+<tr><td valign="top"><a href="#fetch_remote_application-7">fetch_remote_application/7</a></td><td>pull down an application from a repo into the ToDir.</td></tr>
+<tr><td valign="top"><a href="#fetch_remote_release-7">fetch_remote_release/7</a></td><td>
+   Install a release package from a repository.</td></tr>
+<tr><td valign="top"><a href="#install_erts-3">install_erts/3</a></td><td>
+   Install an erts package.</td></tr>
+<tr><td valign="top"><a href="#install_latest_remote_application-5">install_latest_remote_application/5</a></td><td>   
+Install a the highest version found of an application package from a repository.</td></tr>
+<tr><td valign="top"><a href="#install_latest_remote_release-6">install_latest_remote_release/6</a></td><td>
+   Install the latest version found of a release package from a repository.</td></tr>
+<tr><td valign="top"><a href="#install_release-6">install_release/6</a></td><td>
+   Install a release package.</td></tr>
+<tr><td valign="top"><a href="#install_remote_application-6">install_remote_application/6</a></td><td>   
+Install an application package from a repository.</td></tr>
+<tr><td valign="top"><a href="#install_remote_erts-3">install_remote_erts/3</a></td><td>
+   Install an erts package from a repository.</td></tr>
+<tr><td valign="top"><a href="#install_remote_release-7">install_remote_release/7</a></td><td>
+   Install a release package from a repository.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="fetch_latest_remote_application-6">fetch_latest_remote_application/6</a></h3>
+<div class="spec">
+<p><tt>fetch_latest_remote_application(Repos, TargetErtsVsn::TargetErtsVsns, AppName, ToDir, Options, Timeout) -&gt; ok | {error, Reason} | <a href="#type-exit">exit()</a></tt>
+<ul class="definitions"><li><tt>Repos = string()</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>AppName = string()</tt></li>
+<li><tt>Options = <a href="#type-options">options()</a></tt></li>
+</ul></p>
+</div><p><p>   
+Fetch the the highest version found of an application package from a repository.</p>
+ 
+  <pre>
+  Examples:
+   fetch_latest_remote_application(["http"//repo.erlware.org/pub"], "5.5.5", gas)
+  </pre>
+ </p>
+
+<h3 class="function"><a name="fetch_latest_remote_release-6">fetch_latest_remote_release/6</a></h3>
+<div class="spec">
+<p><tt>fetch_latest_remote_release(Repos, TargetErtsVsn::TargetErtsVsns, RelName, ToDir, Options, Timeout) -&gt; ok | {error, Reason} | <a href="#type-exit">exit()</a></tt>
+<ul class="definitions"><li><tt>Repos = string()</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>RelName = string()</tt></li>
+<li><tt>RelVsn = string()</tt></li>
+<li><tt>Options = <a href="#type-options">options()</a></tt></li>
+<li><tt>ToDir = string()</tt></li>
+</ul></p>
+</div><p>
+   Fetch the latest version found of a release package from a repository and place it in the specified directory.</p>
+
+<h3 class="function"><a name="fetch_remote_application-7">fetch_remote_application/7</a></h3>
+<div class="spec">
+<p><tt>fetch_remote_application(Repos, TargetErtsVsns::<a href="#type-target_erts_vsns">target_erts_vsns()</a>, AppName, AppVsn, ToDir, Options, Timeout) -&gt; ok | {error, Reason}</tt></p>
+</div><p>pull down an application from a repo into the ToDir</p>
+
+<h3 class="function"><a name="fetch_remote_release-7">fetch_remote_release/7</a></h3>
+<div class="spec">
+<p><tt>fetch_remote_release(Repos, TargetErtsVsn::TargetErtsVsns, RelName, RelVsn, ToDir, Options, Timeout) -&gt; ok | {error, Reason} | <a href="#type-exit">exit()</a></tt>
+<ul class="definitions"><li><tt>Repos = string()</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>RelName = string()</tt></li>
+<li><tt>RelVsn = string()</tt></li>
+<li><tt>ToDir = string()</tt></li>
+</ul></p>
+</div><p>
+   Install a release package from a repository.
+   IsLocalBoot indicates whether a local specific boot file is to
+   be created or not. See the systools docs for more information.</p>
+
+<h3 class="function"><a name="install_erts-3">install_erts/3</a></h3>
+<div class="spec">
+<p><tt>install_erts(Repos, ErtsVsnOrPath, Timeout) -&gt; ok | {error, Reason} | <a href="#type-exit">exit()</a></tt>
+<ul class="definitions"><li><tt>Type = application | release</tt></li>
+<li><tt>AppNameOrPath = string()</tt></li>
+</ul></p>
+</div><p>
+   Install an erts package.</p>
+
+<h3 class="function"><a name="install_latest_remote_application-5">install_latest_remote_application/5</a></h3>
+<div class="spec">
+<p><tt>install_latest_remote_application(Repos, TargetErtsVsn::TargetErtsVsns, AppName, Options, Timeout) -&gt; ok | {error, Reason} | <a href="#type-exit">exit()</a></tt>
+<ul class="definitions"><li><tt>Repos = string()</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>AppName = string()</tt></li>
+<li><tt>Options = <a href="#type-options">options()</a></tt></li>
+</ul></p>
+</div><p><p>   
+Install a the highest version found of an application package from a repository.</p>
+ 
+  <pre>
+  Examples:
+   install_latest_remote_application(["http"//repo.erlware.org/pub"], "5.5.5", gas, [], 10000)
+  </pre>
+ </p>
+
+<h3 class="function"><a name="install_latest_remote_release-6">install_latest_remote_release/6</a></h3>
+<div class="spec">
+<p><tt>install_latest_remote_release(Repos, TargetErtsVsn::TargetErtsVsns, RelName, IsLocalBoot, Options, Timeout) -&gt; ok | {error, Reason} | <a href="#type-exit">exit()</a></tt>
+<ul class="definitions"><li><tt>Repos = string()</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>RelName = string()</tt></li>
+<li><tt>RelVsn = string()</tt></li>
+<li><tt>IsLocalBoot = bool()</tt></li>
+<li><tt>Options = <a href="#type-options">options()</a></tt></li>
+</ul></p>
+</div><p>
+   Install the latest version found of a release package from a repository.
+   IsLocalBoot indicates whether a local specific boot file is to be created or not. See the systools docs for more information.</p>
+
+<h3 class="function"><a name="install_release-6">install_release/6</a></h3>
+<div class="spec">
+<p><tt>install_release(Repos, TargetErtsVsn::TargetErtsVsns, ReleasePackageArchiveOrDirPath, IsLocalBoot, Options, Timeout) -&gt; ok | {error, Reason} | <a href="#type-exit">exit()</a></tt>
+<ul class="definitions"><li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>Type = application | release</tt></li>
+<li><tt>AppNameOrPath = string()</tt></li>
+<li><tt>ReleasePackageArchiveOrDirPath = string()</tt></li>
+<li><tt>IsLocalBoot = bool()</tt></li>
+<li><tt>Options = <a href="#type-force">force()</a></tt></li>
+</ul></p>
+</div><p>
+   Install a release package.  This function will determine whether the target (AppNameOrPath) is a request to install
+   an application from a remote repository or to install a release package (.epkg) or an untarred package directory.
+   IsLocalBoot indicates whether a local specific boot file is to be created or not. See the systools docs for more information.</p>
+
+<h3 class="function"><a name="install_remote_application-6">install_remote_application/6</a></h3>
+<div class="spec">
+<p><tt>install_remote_application(Repos, TargetErtsVsn::TargetErtsVsns, AppName, AppVsn, Force, Timeout) -&gt; ok | {error, Reason} | <a href="#type-exit">exit()</a></tt>
+<ul class="definitions"><li><tt>Repos = string()</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>AppName = string()</tt></li>
+<li><tt>AppVsn = string()</tt></li>
+<li><tt>Force = bool()</tt></li>
+</ul></p>
+</div><p><p>   
+Install an application package from a repository. Versions can be the string "LATEST". Calling this function will install   
+a remote application at IntallationPath/lib/Appname-Appvsn.</p>
+ 
+  <pre>
+  Examples:
+   install_remote_application(["http"//repo.erlware.org/pub"], "5.5.5", gas, "4.6.0", false)
+  </pre>
+ </p>
+
+<h3 class="function"><a name="install_remote_erts-3">install_remote_erts/3</a></h3>
+<div class="spec">
+<p><tt>install_remote_erts(Repos, ErtsVsn, Timeout) -&gt; ok | {error, Reason} | <a href="#type-exit">exit()</a></tt>
+<ul class="definitions"><li><tt>Repos = string()</tt></li>
+<li><tt>TargetErtsVsn = string()</tt></li>
+<li><tt>ErtsName = string()</tt></li>
+<li><tt>ErtsVsn = string()</tt></li>
+</ul></p>
+</div><p>
+   Install an erts package from a repository.
+  <pre>
+  Examples:
+   install_remote_erts(["http"//repo.erlware.org/pub"], "5.5.5", 100000)
+  </pre></p>
+
+<h3 class="function"><a name="install_remote_release-7">install_remote_release/7</a></h3>
+<div class="spec">
+<p><tt>install_remote_release(Repos, TargetErtsVsn::TargetErtsVsns, RelName, RelVsn, IsLocalBoot, Options, Timeout) -&gt; ok | {error, Reason} | <a href="#type-exit">exit()</a></tt>
+<ul class="definitions"><li><tt>Repos = string()</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>RelName = string()</tt></li>
+<li><tt>RelVsn = string()</tt></li>
+<li><tt>IsLocalBoot = bool()</tt></li>
+<li><tt>Options = <a href="#type-options">options()</a></tt></li>
+</ul></p>
+</div><p>
+   Install a release package from a repository.
+   IsLocalBoot indicates whether a local specific boot file is to be created or not. See the systools docs for more information.</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, May 10 2009, 10:18:47.</i></p>
+</body>
+</html>

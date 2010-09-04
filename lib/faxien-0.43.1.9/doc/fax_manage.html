@@ -1,0 +1,278 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Module fax_manage</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module fax_manage</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#types">Data Types</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>Handles fetching packages from the remote repository and
+        placing them in the erlware repo.
+<p>Copyright © 2007 Erlware</p>
+
+<p><b>Authors:</b> Martin Logan.</p>
+
+<h2><a name="description">Description</a></h2>Handles fetching packages from the remote repository and
+        placing them in the erlware repo.
+  
+<h2><a name="types">Data Types</a></h2>
+
+<h3 class="typedecl"><a name="type-erts_prompt">erts_prompt()</a></h3>
+<p><tt>erts_prompt() = bool()</tt></p>
+<p>indicate whether or not to prompt upon finding a package outside of the target erts vsn.</p>
+
+<h3 class="typedecl"><a name="type-erts_prompt">erts_prompt()</a></h3>
+<p><tt>erts_prompt() = bool()</tt></p>
+<p>indicate whether or not to prompt upon finding a package outside of the target erts vsn.</p>
+
+<h3 class="typedecl"><a name="type-erts_prompt">erts_prompt()</a></h3>
+<p><tt>erts_prompt() = bool()</tt></p>
+<p>indicate whether or not to prompt upon finding a package outside of the target erts vsn.</p>
+
+<h3 class="typedecl"><a name="type-erts_prompt">erts_prompt()</a></h3>
+<p><tt>erts_prompt() = bool()</tt></p>
+<p>indicate whether or not to prompt upon finding a package outside of the target erts vsn.</p>
+
+<h3 class="typedecl"><a name="type-erts_prompt">erts_prompt()</a></h3>
+<p><tt>erts_prompt() = bool()</tt></p>
+<p>indicate whether or not to prompt upon finding a package outside of the target erts vsn.</p>
+
+<h3 class="typedecl"><a name="type-force">force()</a></h3>
+<p><tt>force() = bool()</tt></p>
+<p>Indicates whether an existing app is to be overwritten with or without user conscent.</p>
+
+<h3 class="typedecl"><a name="type-options">options()</a></h3>
+<p><tt>options() = [Option]</tt>
+<ul class="definitions"><li><tt>Options = {force, <a href="#type-force">force()</a>} | {erts_prompt, <a href="#type-erts_prompt">erts_prompt()</a>}</tt></li>
+</ul></p>
+
+
+<h3 class="typedecl"><a name="type-repo">repo()</a></h3>
+<p><tt>repo() = string()</tt></p>
+<p>Contains address and repo designation. Example: http://www.erlware.org/stable.</p>
+
+<h3 class="typedecl"><a name="type-target_erts_vsns">target_erts_vsns()</a></h3>
+<p><tt>target_erts_vsns() = [TargetErtsVsn] | TargetErtsVsn</tt>
+<ul class="definitions"><li><tt>TargetErtsVsn = string()</tt></li>
+</ul></p>
+
+
+<h3 class="typedecl"><a name="type-timeout">timeout()</a></h3>
+<p><tt>timeout() = integer() | infinity</tt></p>
+<p>Timeouts are specified in milliseconds.
+  </p>
+
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#add_repo_to_fetch_from-2">add_repo_to_fetch_from/2</a></td><td>Add a repository to fetch from.</td></tr>
+<tr><td valign="top"><a href="#add_repo_to_publish_to-2">add_repo_to_publish_to/2</a></td><td>Add a repository to publish to.</td></tr>
+<tr><td valign="top"><a href="#describe_app-5">describe_app/5</a></td><td>
+   Fetch the description for a particular application from a remote repository.</td></tr>
+<tr><td valign="top"><a href="#describe_latest_app-4">describe_latest_app/4</a></td><td>
+   Fetch the description for the latest version of a particular application from a remote repository.</td></tr>
+<tr><td valign="top"><a href="#describe_latest_release-4">describe_latest_release/4</a></td><td>
+   Fetch the description for the latest version of a particular release from a remote repository.</td></tr>
+<tr><td valign="top"><a href="#describe_release-5">describe_release/5</a></td><td>
+   Fetch the description for a particular release from a remote repository.</td></tr>
+<tr><td valign="top"><a href="#get_signature-1">get_signature/1</a></td><td>fetch and or create a signature for this instance of Faxien.</td></tr>
+<tr><td valign="top"><a href="#outdated_applications-3">outdated_applications/3</a></td><td>Display all currently installed applications that have available updates.</td></tr>
+<tr><td valign="top"><a href="#outdated_releases-3">outdated_releases/3</a></td><td>Display all currently installed releases that have available updates.</td></tr>
+<tr><td valign="top"><a href="#raw_list-3">raw_list/3</a></td><td></td></tr>
+<tr><td valign="top"><a href="#remove_repo_to_fetch_from-2">remove_repo_to_fetch_from/2</a></td><td>Remove a repository to fetch from.</td></tr>
+<tr><td valign="top"><a href="#remove_repo_to_publish_to-2">remove_repo_to_publish_to/2</a></td><td>Remove a repository to publish to.</td></tr>
+<tr><td valign="top"><a href="#search-5">search/5</a></td><td>
+   Search through and list packages in remote repositories.</td></tr>
+<tr><td valign="top"><a href="#set_preferred_erts_vsn-2">set_preferred_erts_vsn/2</a></td><td>Set the preferred erts vsn for Faxien to use.</td></tr>
+<tr><td valign="top"><a href="#set_request_timeout-2">set_request_timeout/2</a></td><td>Set the request timeout.</td></tr>
+<tr><td valign="top"><a href="#upgrade_application-5">upgrade_application/5</a></td><td>upgrade a single application.</td></tr>
+<tr><td valign="top"><a href="#upgrade_applications-4">upgrade_applications/4</a></td><td>upgrade all applications on the install path.</td></tr>
+<tr><td valign="top"><a href="#upgrade_release-6">upgrade_release/6</a></td><td>upgrade a single release.</td></tr>
+<tr><td valign="top"><a href="#upgrade_releases-5">upgrade_releases/5</a></td><td>upgrade all applications on the install path.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="add_repo_to_fetch_from-2">add_repo_to_fetch_from/2</a></h3>
+<div class="spec">
+<p><tt>add_repo_to_fetch_from(Repo, ConfigFilePaths) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repos = string()</tt></li>
+<li><tt>ConfigFilePaths = [string()]</tt></li>
+</ul></p>
+</div><p>Add a repository to fetch from.</p>
+
+<h3 class="function"><a name="add_repo_to_publish_to-2">add_repo_to_publish_to/2</a></h3>
+<div class="spec">
+<p><tt>add_repo_to_publish_to(Repo, ConfigFilePaths) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repos = string()</tt></li>
+<li><tt>ConfigFilePaths = [string()]</tt></li>
+</ul></p>
+</div><p>Add a repository to publish to.</p>
+
+<h3 class="function"><a name="describe_app-5">describe_app/5</a></h3>
+<div class="spec">
+<p><tt>describe_app(Repos, TargetErtsVsn::TargetErtsVsns, AppName, AppVsn, Timeout) -&gt; ok | {error, Reason} | <a href="#type-exit">exit()</a></tt>
+<ul class="definitions"><li><tt>Repos = list()</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>AppName = string()</tt></li>
+<li><tt>AppVsn = string()</tt></li>
+<li><tt>Timeout = integer() | infinity</tt></li>
+</ul></p>
+</div><p>
+   Fetch the description for a particular application from a remote repository.</p>
+
+<h3 class="function"><a name="describe_latest_app-4">describe_latest_app/4</a></h3>
+<div class="spec">
+<p><tt>describe_latest_app(Repos, TargetErtsVsn::TargetErtsVsns, AppName, Timeout) -&gt; ok | {error, Reason} | <a href="#type-exit">exit()</a></tt>
+<ul class="definitions"><li><tt>Repos = list()</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>AppName = string()</tt></li>
+<li><tt>Timeout = integer() | infinity</tt></li>
+</ul></p>
+</div><p>
+   Fetch the description for the latest version of a particular application from a remote repository.</p>
+
+<h3 class="function"><a name="describe_latest_release-4">describe_latest_release/4</a></h3>
+<div class="spec">
+<p><tt>describe_latest_release(Repos, TargetErtsVsn::TargetErtsVsns, RelName, Timeout) -&gt; ok | {error, Reason} | <a href="#type-exit">exit()</a></tt>
+<ul class="definitions"><li><tt>Repos = list()</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>RelName = string()</tt></li>
+<li><tt>Timeout = integer() | infinity</tt></li>
+</ul></p>
+</div><p>
+   Fetch the description for the latest version of a particular release from a remote repository.</p>
+
+<h3 class="function"><a name="describe_release-5">describe_release/5</a></h3>
+<div class="spec">
+<p><tt>describe_release(Repos, TargetErtsVsn::TargetErtsVsns, RelName, RelVsn, Timeout) -&gt; ok | {error, Reason} | <a href="#type-exit">exit()</a></tt>
+<ul class="definitions"><li><tt>Repos = list()</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>RelName = string()</tt></li>
+<li><tt>RelVsn = string()</tt></li>
+<li><tt>Timeout = integer() | infinity</tt></li>
+</ul></p>
+</div><p>
+   Fetch the description for a particular release from a remote repository.</p>
+
+<h3 class="function"><a name="get_signature-1">get_signature/1</a></h3>
+<div class="spec">
+<p><tt>get_signature(ConfigFilePaths) -&gt; {ok, Sig}</tt>
+<ul class="definitions"><li><tt>ConfigFilePaths = [string()]</tt></li>
+<li><tt>Sig = {{public_key, {Mod, ExpPub}}, {private_key, {Mod, ExpPriv}}}</tt></li>
+</ul></p>
+</div><p>fetch and or create a signature for this instance of Faxien.</p>
+
+<h3 class="function"><a name="outdated_applications-3">outdated_applications/3</a></h3>
+<div class="spec">
+<p><tt>outdated_applications(Repos, TargetErtsVsn::TargetErtsVsns, Timeout) -&gt; OutdatedApps</tt>
+<ul class="definitions"><li><tt>Repos = [string()]</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>OutdatedApps = [{AppName, HighestLocalVsn, HigherVersion}]</tt></li>
+</ul></p>
+</div><p>Display all currently installed applications that have available updates.</p>
+
+<h3 class="function"><a name="outdated_releases-3">outdated_releases/3</a></h3>
+<div class="spec">
+<p><tt>outdated_releases(Repos, TargetErtsVsn::TargetErtsVsns, Timeout) -&gt; OutdatedReleases</tt>
+<ul class="definitions"><li><tt>Repos = [string()]</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>OutdatedReleases = [{ReleaseName, HighestLocalVsn, HigherVersion}]</tt></li>
+</ul></p>
+</div><p>Display all currently installed releases that have available updates.</p>
+
+<h3 class="function"><a name="raw_list-3">raw_list/3</a></h3>
+<div class="spec">
+<p><tt>raw_list(Repos, Side, TargetErtsVsns) -&gt; any()</tt></p>
+</div>
+
+<h3 class="function"><a name="remove_repo_to_fetch_from-2">remove_repo_to_fetch_from/2</a></h3>
+<div class="spec">
+<p><tt>remove_repo_to_fetch_from(Repo, ConfigFilePaths) -&gt; ok</tt>
+<ul class="definitions"><li><tt>Repos = string()</tt></li>
+<li><tt>ConfigFilePaths = [string()]</tt></li>
+</ul></p>
+</div><p>Remove a repository to fetch from.</p>
+
+<h3 class="function"><a name="remove_repo_to_publish_to-2">remove_repo_to_publish_to/2</a></h3>
+<div class="spec">
+<p><tt>remove_repo_to_publish_to(Repo, ConfigFilePaths) -&gt; ok</tt>
+<ul class="definitions"><li><tt>Repos = string()</tt></li>
+<li><tt>ConfigFilePaths = [string()]</tt></li>
+</ul></p>
+</div><p>Remove a repository to publish to.</p>
+
+<h3 class="function"><a name="search-5">search/5</a></h3>
+<div class="spec">
+<p><tt>search(Repos, Side, SearchType, SearchString, TargetErtsVsn::TargetErtsVsns) -&gt; string()</tt>
+<ul class="definitions"><li><tt>Repos = list()</tt></li>
+<li><tt>Side = lib | releases | both</tt></li>
+<li><tt>SearchType = regexp | normal</tt></li>
+<li><tt>SearchString = string()</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>TargetErtsVsn = string()</tt></li>
+</ul></p>
+</div><p>
+   Search through and list packages in remote repositories.</p>
+
+<h3 class="function"><a name="set_preferred_erts_vsn-2">set_preferred_erts_vsn/2</a></h3>
+<div class="spec">
+<p><tt>set_preferred_erts_vsn(PreferredErtsVsn, ConfigFilePaths) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Timeout = <a href="#type-timeout">timeout()</a></tt></li>
+<li><tt>ConfigFilePaths = [string()]</tt></li>
+</ul></p>
+</div><p>Set the preferred erts vsn for Faxien to use.</p>
+
+<h3 class="function"><a name="set_request_timeout-2">set_request_timeout/2</a></h3>
+<div class="spec">
+<p><tt>set_request_timeout(Timeout, ConfigFilePaths) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Timeout = <a href="#type-timeout">timeout()</a></tt></li>
+<li><tt>ConfigFilePaths = [string()]</tt></li>
+</ul></p>
+</div><p>Set the request timeout.</p>
+
+<h3 class="function"><a name="upgrade_application-5">upgrade_application/5</a></h3>
+<div class="spec">
+<p><tt>upgrade_application(Repos, TargetErtsVsn::TargetErtsVsns, AppName, Options, Timeout) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repos = [string()]</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>AppName = string()</tt></li>
+<li><tt>Options = <a href="#type-options">options()</a></tt></li>
+</ul></p>
+</div><p>upgrade a single application.</p>
+
+<h3 class="function"><a name="upgrade_applications-4">upgrade_applications/4</a></h3>
+<div class="spec">
+<p><tt>upgrade_applications(Repos, TargetErtsVsn::TargetErtsVsns, Options, Timeout) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repos = [string()]</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>Options = <a href="#type-options">options()</a></tt></li>
+</ul></p>
+</div><p>upgrade all applications on the install path.</p>
+
+<h3 class="function"><a name="upgrade_release-6">upgrade_release/6</a></h3>
+<div class="spec">
+<p><tt>upgrade_release(Repos, TargetErtsVsn::TargetErtsVsns, ReleaseName, IsLocalBoot, Options, Timeout) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repos = [string()]</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>ReleaseName = string()</tt></li>
+<li><tt>Options = <a href="#type-options">options()</a></tt></li>
+</ul></p>
+</div><p>upgrade a single release.
+   IsLocalBoot indicates whether a local specific boot file is to be created or not. See the systools docs for more information.</p>
+
+<h3 class="function"><a name="upgrade_releases-5">upgrade_releases/5</a></h3>
+<div class="spec">
+<p><tt>upgrade_releases(Repos, TargetErtsVsn::TargetErtsVsns, IsLocalBoot, Options, Timeout) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repos = [string()]</tt></li>
+<li><tt>TargetErtsVsns = <a href="#type-target_erts_vsns">target_erts_vsns()</a></tt></li>
+<li><tt>Options = <a href="#type-options">options()</a></tt></li>
+</ul></p>
+</div><p>upgrade all applications on the install path.</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, May 10 2009, 10:18:47.</i></p>
+</body>
+</html>

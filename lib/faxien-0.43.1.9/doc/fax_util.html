@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Module fax_util</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module fax_util</h1>
+<ul class="index"><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>
+<p>Copyright © 2007 Erlware</p>
+
+<p><b>Authors:</b> Martin Logan (<a href="mailto:martinjlogan@erlware.org"><tt>martinjlogan@erlware.org</tt></a>).</p>
+
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#add_pzs-1">add_pzs/1</a></td><td>
+   Transform a mix of local paths and local app dirs into a list of
+   fully qualified ebin paths and add them to the code loader load path.</td></tr>
+<tr><td valign="top"><a href="#ask_about_switching_target_erts_vsns-4">ask_about_switching_target_erts_vsns/4</a></td><td>Prompt the user when he is switching erts vsns due to an install.</td></tr>
+<tr><td valign="top"><a href="#copy_dir_to_tmp_dir-1">copy_dir_to_tmp_dir/1</a></td><td>take a directory and copy it into a temporary directory.</td></tr>
+<tr><td valign="top"><a href="#execute_on_latest_package_version-6">execute_on_latest_package_version/6</a></td><td>Equivalent to <a href="#execute_on_latest_package_version-7"><tt>execute_on_latest_package_version(Repos, TargetErtsVsn,
+				  PackageName, Fun, Side, infinity, ErtsPrompt)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#execute_on_latest_package_version-7">execute_on_latest_package_version/7</a></td><td>
+   Manage finding the highest version of a particular package and
+   executing on it.</td></tr>
+<tr><td valign="top"><a href="#find_highest_vsn-4">find_highest_vsn/4</a></td><td>Equivalent to <a href="#find_highest_vsn-5"><tt>find_highest_vsn(Repos, TargetErtsVsns, PackageName,
+		 Side, infinity)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#find_highest_vsn-5">find_highest_vsn/5</a></td><td>  
+Return the latest version lower than the VsnThreshold and repo that contains it for a given package and repos.</td></tr>
+<tr><td valign="top"><a href="#get_erts_vsns_gte_than-2">get_erts_vsns_gte_than/2</a></td><td>return all the erts vsns that are greater than or equal to the target erts versions.</td></tr>
+<tr><td valign="top"><a href="#repo_list-1">repo_list/1</a></td><td>
+  Return a the contents of a directory.</td></tr>
+<tr><td valign="top"><a href="#to_app_dirs-1">to_app_dirs/1</a></td><td>
+   Transform a mix of local paths and local app dirs into a list of
+   fully qualified local app dirs.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="add_pzs-1">add_pzs/1</a></h3>
+<div class="spec">
+<p><tt>add_pzs(LibDirs) -&gt; list()</tt></p>
+</div><p>
+   Transform a mix of local paths and local app dirs into a list of
+   fully qualified ebin paths and add them to the code loader load path.</p>
+
+<h3 class="function"><a name="ask_about_switching_target_erts_vsns-4">ask_about_switching_target_erts_vsns/4</a></h3>
+<div class="spec">
+<p><tt>ask_about_switching_target_erts_vsns(PackageName, PackageVsn, TargetErtsVsn, RemoteErtsVsn) -&gt; bool()</tt></p>
+</div><p>Prompt the user when he is switching erts vsns due to an install.</p>
+
+<h3 class="function"><a name="copy_dir_to_tmp_dir-1">copy_dir_to_tmp_dir/1</a></h3>
+<div class="spec">
+<p><tt>copy_dir_to_tmp_dir(TargetDirPath::string()) -&gt; {ok, TmpDirPath} | <a href="#type-exit">exit()</a></tt></p>
+</div><p>take a directory and copy it into a temporary directory.</p>
+
+<h3 class="function"><a name="execute_on_latest_package_version-6">execute_on_latest_package_version/6</a></h3>
+<div class="spec">
+<p><tt>execute_on_latest_package_version(Repos, TargetErtsVsn, PackageName, Fun, Side, ErtsPrompt) -&gt; ok | <a href="#type-exit">exit()</a></tt></p>
+</div><p>Equivalent to <a href="#execute_on_latest_package_version-7"><tt>execute_on_latest_package_version(Repos, TargetErtsVsn,
+				  PackageName, Fun, Side, infinity, ErtsPrompt)</tt></a>.</p>
+
+
+<h3 class="function"><a name="execute_on_latest_package_version-7">execute_on_latest_package_version/7</a></h3>
+<div class="spec">
+<p><tt>execute_on_latest_package_version(Repos, TargetErtsVsns::TargetErtsVsn, PackageName, Fun, Side, VsnThreshold, ErtsPrompt) -&gt; ok | exit</tt>
+<ul class="definitions"><li><tt>Side = lib | releases</tt></li>
+<li><tt>VsnThreshold = string() | infinity</tt></li>
+<li><tt>ErtsPrompt = bool()</tt></li>
+</ul></p>
+</div><p>
+   Manage finding the highest version of a particular package and
+   executing on it. Terminate execution when the fun returns ok.</p>
+
+<h3 class="function"><a name="find_highest_vsn-4">find_highest_vsn/4</a></h3>
+<div class="spec">
+<p><tt>find_highest_vsn(Repos, TargetErtsVsns, PackageName, Side) -&gt; {ok, {Repo, Vsn, ErtsVsn}} | {error, Reason}</tt></p>
+</div><p>Equivalent to <a href="#find_highest_vsn-5"><tt>find_highest_vsn(Repos, TargetErtsVsns, PackageName,
+		 Side, infinity)</tt></a>.</p>
+
+
+<h3 class="function"><a name="find_highest_vsn-5">find_highest_vsn/5</a></h3>
+<div class="spec">
+<p><tt>find_highest_vsn(Repos, TargetErtsVsns, PackageName, Side, VsnThreshold) -&gt; {ok, {Repo, Vsn, ErtsVsn}} | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Side = lib | releases</tt></li>
+<li><tt>VsnThreshold = string() | infinity</tt></li>
+</ul></p>
+</div><p><p>  
+Return the latest version lower than the VsnThreshold and repo that contains it for a given package and repos.</p>
+ 
+  <pre>
+  Variables:
+   VsnThreshold - is used to indicate that the highest version possible is to be found but no higher than VsnThreshold.
+  </pre>
+ </p>
+
+<h3 class="function"><a name="get_erts_vsns_gte_than-2">get_erts_vsns_gte_than/2</a></h3>
+<div class="spec">
+<p><tt>get_erts_vsns_gte_than(TargetErtsVsn, VsnThreshold) -&gt; ErtsVsns::list()</tt></p>
+</div><p>return all the erts vsns that are greater than or equal to the target erts versions.</p>
+
+<h3 class="function"><a name="repo_list-1">repo_list/1</a></h3>
+<div class="spec">
+<p><tt>repo_list(Path::Url) -&gt; {ok, DirContents} | {error, Reason}</tt>
+<ul class="definitions"><li><tt>DirContents = list()</tt></li>
+</ul></p>
+</div><p>
+  Return a the contents of a directory.</p>
+
+<h3 class="function"><a name="to_app_dirs-1">to_app_dirs/1</a></h3>
+<div class="spec">
+<p><tt>to_app_dirs(LibDirs) -&gt; list()</tt></p>
+</div><p>
+   Transform a mix of local paths and local app dirs into a list of
+   fully qualified local app dirs.
+   i.e ["../*"] -&gt; ["/home/martin/otp/lib/resource_discovery", ... ]</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, May 10 2009, 10:18:47.</i></p>
+</body>
+</html>

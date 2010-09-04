@@ -1,0 +1,664 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Module faxien</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module faxien</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#types">Data Types</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>This is the UI for Faxien.
+<p>Copyright © 2007 Erlware</p>
+
+<p><b>Authors:</b> Martin Logan.</p>
+
+<h2><a name="description">Description</a></h2><p>This is the UI for Faxien. Application programmers should use the lower level API's provided by other faxien modules   
+in most cases.  This module encapsulates many of the side effects and configuration that makes the faxien commandline   
+application behave in the way it should.  Most functions within are intended to be called from the command line. This means   
+that they will be wrapped by fax_cmdln:faxien_apply. Note that all exported functions contained within should return   
+ok | {ok, Value} in the correct case and {error, Reason} or an exception in the error case.  The exception to these rules   
+are exported functions that are not to be called from the commandline.</p>
+  
+   <p>NOTE*  The max line length for this file and all erlware projects is 132 not 80 columns.</p>
+  
+   Types:
+<h2><a name="types">Data Types</a></h2>
+
+<h3 class="typedecl"><a name="type-erts_policy">erts_policy()</a></h3>
+<p><tt>erts_policy() = strict | loose</tt></p>
+<p>Strict erts policy means only apps of strictly the same erts version
+                                          as specified with in a release will be installed for that release. Loose
+                                          indicates that if needed minor version compatible apps can be used
+                                          i.e 5.6.1 for 5.6.2</p>
+
+<h3 class="typedecl"><a name="type-options">options()</a></h3>
+<p><tt>options() = [Option]</tt>
+<ul class="definitions"><li><tt>Options = {force, <a href="#type-force">force()</a>} | {erts_prompt, <a href="#type-erts_prompt">erts_prompt()</a>} | {erts_policy, ErtsPolicy}</tt></li>
+<li><tt>ErtsPolicy = strict | loose</tt></li>
+</ul></p>
+
+
+<h3 class="typedecl"><a name="type-repo">repo()</a></h3>
+<p><tt>repo() = string()</tt></p>
+<p>Contains domain and repo root.
+     Example: http://www.erlware.org/stable</p>
+
+<h3 class="typedecl"><a name="type-repo_suffix">repo_suffix()</a></h3>
+<p><tt>repo_suffix() = string()</tt></p>
+<p>Contains ErtsVsn/Area/Application/Vsn/TarFile.</p>
+
+<h3 class="typedecl"><a name="type-timeout">timeout()</a></h3>
+<p><tt>timeout() = integer() | infinity</tt></p>
+<p>Timeouts are specified in milliseconds.</p>
+
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#add_publish_repo-1">add_publish_repo/1</a></td><td>Add a repository to the list of repos to publish to.</td></tr>
+<tr><td valign="top"><a href="#add_repo-1">add_repo/1</a></td><td>Add a repository to the list of repos to fetch from.</td></tr>
+<tr><td valign="top"><a href="#cmdln_apply-1">cmdln_apply/1</a></td><td>apply functions from the commandline.</td></tr>
+<tr><td valign="top"><a href="#describe_app-1">describe_app/1</a></td><td>
+   Fetch the description for the highest vesion available for a particular application.</td></tr>
+<tr><td valign="top"><a href="#describe_app-2">describe_app/2</a></td><td>
+   Fetch the description for a particular application.</td></tr>
+<tr><td valign="top"><a href="#describe_release-1">describe_release/1</a></td><td>
+   Fetch the description for the highest vesion available for a particular release.</td></tr>
+<tr><td valign="top"><a href="#describe_release-2">describe_release/2</a></td><td>
+   Fetch the description for a particular release.</td></tr>
+<tr><td valign="top"><a href="#diff_config-3">diff_config/3</a></td><td>Diff two config files.</td></tr>
+<tr><td valign="top"><a href="#environment-0">environment/0</a></td><td>Display information about the current Faxien environment settings.</td></tr>
+<tr><td valign="top"><a href="#fetch_app-2">fetch_app/2</a></td><td>
+   Fetch the highest version of an application from a repository and place it into the specified directory
+  <pre>
+  Examples:
+   fetch_app(gas, "./")
+  </pre></td></tr>
+<tr><td valign="top"><a href="#fetch_app-3">fetch_app/3</a></td><td>Equivalent to <a href="#fetch_app-4"><tt>fetch_app(ERLWARE, AppName, AppVsn, ToDir)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#fetch_app-4">fetch_app/4</a></td><td>
+   Fetch an application from a repository and place it into the specified directory
+  <pre>
+  Examples:
+   fetch_app(["http"//www.erlware.org/pub"], gas, "./")
+  </pre></td></tr>
+<tr><td valign="top"><a href="#fetch_release-2">fetch_release/2</a></td><td>
+   Fetch the latest version of a release and all its applications from a repository and place them in a specified directory.</td></tr>
+<tr><td valign="top"><a href="#fetch_release-3">fetch_release/3</a></td><td>Equivalent to <a href="#fetch_release-4"><tt>fetch_release(ERLWARE, ReleaseName, ReleaseVsn, ToDir)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#fetch_release-4">fetch_release/4</a></td><td>
+   Fetch a release and all its applications from a repository and place them into a specified directory.</td></tr>
+<tr><td valign="top"><a href="#help-0">help/0</a></td><td>
+   Print the help screen.</td></tr>
+<tr><td valign="top"><a href="#help-1">help/1</a></td><td>
+   Print the help screen for a specific command.</td></tr>
+<tr><td valign="top"><a href="#install_app-1">install_app/1</a></td><td>
+   This function will determine if the application to be installed is a local release package or it is a package that must
+   first be pulled down from a remote repo and pulled down.</td></tr>
+<tr><td valign="top"><a href="#install_app-2">install_app/2</a></td><td>Equivalent to <a href="#install_app-3"><tt>install_app(ERLWARE, AppName, AppVsn)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#install_app-3">install_app/3</a></td><td>
+   Install an application from a repository.</td></tr>
+<tr><td valign="top"><a href="#install_release-0">install_release/0</a></td><td>Install release with no arguments from within a Sinan project
+       will publish the latest dist tarball it finds within the Sinan project.</td></tr>
+<tr><td valign="top"><a href="#install_release-1">install_release/1</a></td><td>
+   This function will determine if the release to be installed is a local release package or it is a package that must
+   first be pulled down from a remote repo and pulled down.</td></tr>
+<tr><td valign="top"><a href="#install_release-2">install_release/2</a></td><td>Equivalent to <a href="#install_release-3"><tt>install_release(ERLWARE, ReleaseName, ReleaseVsn)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#install_release-3">install_release/3</a></td><td>
+   Install a release and all its applications from a repository.</td></tr>
+<tr><td valign="top"><a href="#installed-0">installed/0</a></td><td>Equivalent to <a href="#installed-1"><tt>installed(all)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#installed-1">installed/1</a></td><td>
+   Returns a list of packages that are currently installed.</td></tr>
+<tr><td valign="top"><a href="#outdated_apps-0">outdated_apps/0</a></td><td>Equivalent to <a href="#outdated_apps-1"><tt>outdated_apps(Repos)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#outdated_apps-1">outdated_apps/1</a></td><td>Display all currently installed applications that have available updates.</td></tr>
+<tr><td valign="top"><a href="#outdated_releases-0">outdated_releases/0</a></td><td>Equivalent to <a href="#outdated_releases-1"><tt>outdated_releases(Repos)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#outdated_releases-1">outdated_releases/1</a></td><td>Display all currently installed releases that have available updates.</td></tr>
+<tr><td valign="top"><a href="#publish-0">publish/0</a></td><td>
+   Publish from within a sinan project structure.</td></tr>
+<tr><td valign="top"><a href="#publish-1">publish/1</a></td><td>Equivalent to <a href="#publish-2"><tt>publish(DefaultRepos, AppDir)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#publish-2">publish/2</a></td><td>Equivalent to <a href="#publish-3"><tt>publish(Repos, PackageDir, Timeout)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#publish-3">publish/3</a></td><td>
+   Publishes a pre-built generic application or a release to a remote unguarded repository.</td></tr>
+<tr><td valign="top"><a href="#remove_app-1">remove_app/1</a></td><td>
+   Remove all versions of an installed application.</td></tr>
+<tr><td valign="top"><a href="#remove_app-2">remove_app/2</a></td><td>
+   Remove an installed application.</td></tr>
+<tr><td valign="top"><a href="#remove_publish_repo-1">remove_publish_repo/1</a></td><td>Remove a repository from the list of repos to fetch from.</td></tr>
+<tr><td valign="top"><a href="#remove_release-1">remove_release/1</a></td><td>
+   Remove all versions of an installed release.</td></tr>
+<tr><td valign="top"><a href="#remove_release-2">remove_release/2</a></td><td>
+   Remove an installed release.</td></tr>
+<tr><td valign="top"><a href="#remove_repo-1">remove_repo/1</a></td><td>Remove a repository from the list of repos to fetch from.</td></tr>
+<tr><td valign="top"><a href="#search-0">search/0</a></td><td>Equivalent to <a href="#search-4"><tt>search(Repos, both, regexp, ".*")</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#search-1">search/1</a></td><td>Equivalent to <a href="#search-4"><tt>search(Repos, both, normal, SearchString)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#search-2">search/2</a></td><td>Equivalent to <a href="#search-5"><tt>search(Repos, ConfigTargetErtsVsns, both, SearchType,
+       SearchString)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#search-4">search/4</a></td><td>Equivalent to <a href="#search-5"><tt>search(Repos, TargetErtsVsn, both, SearchType,
+       SearchString)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#search-5">search/5</a></td><td>
+   Returns a list of packages.</td></tr>
+<tr><td valign="top"><a href="#set_preferred_erts_vsn-1">set_preferred_erts_vsn/1</a></td><td>Set the preferred erts vsn for Faxien.</td></tr>
+<tr><td valign="top"><a href="#set_request_timeout-1">set_request_timeout/1</a></td><td>Set repository to publish to.</td></tr>
+<tr><td valign="top"><a href="#show_preferred_erts_vsn-0">show_preferred_erts_vsn/0</a></td><td>Set the preferred erts vsn for Faxien.</td></tr>
+<tr><td valign="top"><a href="#show_publish_repos-0">show_publish_repos/0</a></td><td>Show the list of publish repos that faxien is currently configured to publish to.</td></tr>
+<tr><td valign="top"><a href="#show_repos-0">show_repos/0</a></td><td>Show the list of repos that faxien is currently configured to fetch from.</td></tr>
+<tr><td valign="top"><a href="#show_request_timeout-0">show_request_timeout/0</a></td><td>Show the faxien remote request timeout.</td></tr>
+<tr><td valign="top"><a href="#translate_version-3">translate_version/3</a></td><td>translate_version.</td></tr>
+<tr><td valign="top"><a href="#upgrade_all_apps-0">upgrade_all_apps/0</a></td><td></td></tr>
+<tr><td valign="top"><a href="#upgrade_all_apps-1">upgrade_all_apps/1</a></td><td>upgrade a all installed applications.</td></tr>
+<tr><td valign="top"><a href="#upgrade_all_releases-0">upgrade_all_releases/0</a></td><td>Equivalent to <a href="#upgrade_all_releases-1"><tt>upgrade_all_releases(Repos)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#upgrade_all_releases-1">upgrade_all_releases/1</a></td><td>upgrade_all a all installed releases.</td></tr>
+<tr><td valign="top"><a href="#upgrade_app-1">upgrade_app/1</a></td><td>Equivalent to <a href="#upgrade_app-2"><tt>upgrade_app(Repos, AppName)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#upgrade_app-2">upgrade_app/2</a></td><td>upgrade a single application.</td></tr>
+<tr><td valign="top"><a href="#upgrade_release-1">upgrade_release/1</a></td><td>Equivalent to <a href="#upgrade_release-2"><tt>upgrade_release(Repos, RelName)</tt></a>.
+</td></tr>
+<tr><td valign="top"><a href="#upgrade_release-2">upgrade_release/2</a></td><td>upgrade a single release.</td></tr>
+<tr><td valign="top"><a href="#version-0">version/0</a></td><td>
+   Return the version of the current Faxien release.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="add_publish_repo-1">add_publish_repo/1</a></h3>
+<div class="spec">
+<p><tt>add_publish_repo(Repo) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repo = string() | atom()</tt></li>
+</ul></p>
+</div><p>Add a repository to the list of repos to publish to.</p>
+
+<h3 class="function"><a name="add_repo-1">add_repo/1</a></h3>
+<div class="spec">
+<p><tt>add_repo(Repo) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repo = string() | atom()</tt></li>
+</ul></p>
+</div><p>Add a repository to the list of repos to fetch from.</p>
+
+<h3 class="function"><a name="cmdln_apply-1">cmdln_apply/1</a></h3>
+<div class="spec">
+<p><tt>cmdln_apply(Args::MFA) -&gt; <a href="#type-void">void()</a></tt></p>
+</div><p>apply functions from the commandline.</p>
+
+<h3 class="function"><a name="describe_app-1">describe_app/1</a></h3>
+<div class="spec">
+<p><tt>describe_app(AppName) -&gt; ok</tt>
+<ul class="definitions"><li><tt>AppName = string() | atom()</tt></li>
+</ul></p>
+</div><p>
+   Fetch the description for the highest vesion available for a particular application.</p>
+
+<h3 class="function"><a name="describe_app-2">describe_app/2</a></h3>
+<div class="spec">
+<p><tt>describe_app(AppName, AppVsn) -&gt; ok</tt>
+<ul class="definitions"><li><tt>AppName = string() | atom()</tt></li>
+<li><tt>AppVsn = string() | atom() | integer()</tt></li>
+</ul></p>
+</div><p>
+   Fetch the description for a particular application.</p>
+
+<h3 class="function"><a name="describe_release-1">describe_release/1</a></h3>
+<div class="spec">
+<p><tt>describe_release(RelName) -&gt; ok</tt>
+<ul class="definitions"><li><tt>RelName = string() | atom()</tt></li>
+</ul></p>
+</div><p>
+   Fetch the description for the highest vesion available for a particular release.</p>
+
+<h3 class="function"><a name="describe_release-2">describe_release/2</a></h3>
+<div class="spec">
+<p><tt>describe_release(RelName, RelVsn) -&gt; ok</tt>
+<ul class="definitions"><li><tt>RelName = string() | atom()</tt></li>
+<li><tt>RelVsn = string() | atom() | integer()</tt></li>
+</ul></p>
+</div><p>
+   Fetch the description for a particular release.</p>
+
+<h3 class="function"><a name="diff_config-3">diff_config/3</a></h3>
+<div class="spec">
+<p><tt>diff_config(RelName, RelVsn1, RelVsn2) -&gt; {ok, Diff}</tt></p>
+</div><p>Diff two config files</p>
+
+<h3 class="function"><a name="environment-0">environment/0</a></h3>
+<div class="spec">
+<p><tt>environment() -&gt; {ok, list()}</tt></p>
+</div><p>Display information about the current Faxien environment settings.</p>
+
+<h3 class="function"><a name="fetch_app-2">fetch_app/2</a></h3>
+<div class="spec">
+<p><tt>fetch_app(AppName, ToDir) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>AppName = string() | atom()</tt></li>
+<li><tt>ToDir = string() | atom()</tt></li>
+</ul></p>
+</div><p>
+   Fetch the highest version of an application from a repository and place it into the specified directory
+  <pre>
+  Examples:
+   fetch_app(gas, "./")
+  </pre></p>
+
+<h3 class="function"><a name="fetch_app-3">fetch_app/3</a></h3>
+<div class="spec">
+<p><tt>fetch_app(AppName, AppVsn, ToDir) -&gt; ok | {error, Reason}</tt></p>
+</div><p>Equivalent to <a href="#fetch_app-4"><tt>fetch_app(ERLWARE, AppName, AppVsn, ToDir)</tt></a>.</p>
+
+
+<h3 class="function"><a name="fetch_app-4">fetch_app/4</a></h3>
+<div class="spec">
+<p><tt>fetch_app(Repos, AppName, AppVsn, ToDir) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repos = [string()] | [atom()] | atom()</tt></li>
+<li><tt>AppName = string() | atom()</tt></li>
+<li><tt>AppVsn = 'LATEST' | string() | atom()</tt></li>
+<li><tt>ToDir = string() | atom()</tt></li>
+</ul></p>
+</div><p>
+   Fetch an application from a repository and place it into the specified directory
+  <pre>
+  Examples:
+   fetch_app(["http"//www.erlware.org/pub"], gas, "./")
+  </pre></p>
+
+<h3 class="function"><a name="fetch_release-2">fetch_release/2</a></h3>
+<div class="spec">
+<p><tt>fetch_release(ReleaseName::ReleaseNameOrPath, ToDir) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>ReleaseNameOrPath = atom() | string()</tt></li>
+</ul></p>
+</div><p>
+   Fetch the latest version of a release and all its applications from a repository and place them in a specified directory.
+ </p>
+
+<h3 class="function"><a name="fetch_release-3">fetch_release/3</a></h3>
+<div class="spec">
+<p><tt>fetch_release(ReleaseName, ReleaseVsn, ToDir) -&gt; ok | {error, Reason}</tt></p>
+</div><p>Equivalent to <a href="#fetch_release-4"><tt>fetch_release(ERLWARE, ReleaseName, ReleaseVsn, ToDir)</tt></a>.</p>
+
+
+<h3 class="function"><a name="fetch_release-4">fetch_release/4</a></h3>
+<div class="spec">
+<p><tt>fetch_release(Repos, ReleaseName, ReleaseVsn, ToDir) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repos = [string()] | [atom()] | atom()</tt></li>
+<li><tt>ReleaseName = string() | atom()</tt></li>
+<li><tt>ReleaseVsn = 'LATEST' | string() | atom()</tt></li>
+</ul></p>
+</div><p>
+   Fetch a release and all its applications from a repository and place them into a specified directory.
+ </p>
+
+<h3 class="function"><a name="help-0">help/0</a></h3>
+<div class="spec">
+<p><tt>help() -&gt; ok</tt></p>
+</div><p>
+   Print the help screen</p>
+
+<h3 class="function"><a name="help-1">help/1</a></h3>
+<div class="spec">
+<p><tt>help(Command::atom()) -&gt; ok</tt></p>
+</div><p>
+   Print the help screen for a specific command.</p>
+
+<h3 class="function"><a name="install_app-1">install_app/1</a></h3>
+<div class="spec">
+<p><tt>install_app(AppNameOrPath) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>AppNameOrPath = atom() | string()</tt></li>
+</ul></p>
+</div><p>
+   This function will determine if the application to be installed is a local release package or it is a package that must
+   first be pulled down from a remote repo and pulled down.  If the package is local then it will be installed into the
+   configured location.  If the package is remote than the latest version of that package will be pulled down and installed.
+ </p>
+
+<h3 class="function"><a name="install_app-2">install_app/2</a></h3>
+<div class="spec">
+<p><tt>install_app(AppName, AppVsn) -&gt; ok | {error, Reason}</tt></p>
+</div><p>Equivalent to <a href="#install_app-3"><tt>install_app(ERLWARE, AppName, AppVsn)</tt></a>.</p>
+
+
+<h3 class="function"><a name="install_app-3">install_app/3</a></h3>
+<div class="spec">
+<p><tt>install_app(Repos, AppName, AppVsn) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repos = [string()] | [atom()] | atom()</tt></li>
+<li><tt>AppName = string() | atom()</tt></li>
+<li><tt>AppVsn = 'LATEST' | string() | atom()</tt></li>
+</ul></p>
+</div><p>
+   Install an application from a repository.
+  <pre>
+  Examples:
+   install_app(["http"//www.erlware.org/pub"], gas, "4.6.0")
+   install_app(["http"//www.erlware.org/pub"], gas, "LATEST")
+  </pre></p>
+
+<h3 class="function"><a name="install_release-0">install_release/0</a></h3>
+<div class="spec">
+<p><tt>install_release() -&gt; ok | {error, Reason}</tt></p>
+</div><p>Install release with no arguments from within a Sinan project
+       will publish the latest dist tarball it finds within the Sinan project.
+ </p>
+
+<h3 class="function"><a name="install_release-1">install_release/1</a></h3>
+<div class="spec">
+<p><tt>install_release(ReleaseNameOrPath) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>ReleaseNameOrPath = atom() | string()</tt></li>
+</ul></p>
+</div><p>
+   This function will determine if the release to be installed is a local release package or it is a package that must
+   first be pulled down from a remote repo and pulled down.  If the package is local then it will be installed into the
+   configured location.  If the package is remote than the latest version of that package will be pulled down and installed.
+ </p>
+
+<h3 class="function"><a name="install_release-2">install_release/2</a></h3>
+<div class="spec">
+<p><tt>install_release(ReleaseName, ReleaseVsn) -&gt; ok | {error, Reason}</tt></p>
+</div><p>Equivalent to <a href="#install_release-3"><tt>install_release(ERLWARE, ReleaseName, ReleaseVsn)</tt></a>.</p>
+
+
+<h3 class="function"><a name="install_release-3">install_release/3</a></h3>
+<div class="spec">
+<p><tt>install_release(Repos, ReleaseName, ReleaseVsn) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repos = [string()] | [atom()] | atom()</tt></li>
+<li><tt>ReleaseName = string() | atom()</tt></li>
+<li><tt>ReleaseVsn = 'LATEST' | string() | atom()</tt></li>
+</ul></p>
+</div><p>
+   Install a release and all its applications from a repository. This function will pull down the release tarball for the
+   specified application unpack it, pull down all the applications specified by the included .rel file and finally build
+   a local .boot file used for startup.</p>
+
+<h3 class="function"><a name="installed-0">installed/0</a></h3>
+<div class="spec">
+<p><tt>installed() -&gt; string()</tt></p>
+</div><p>Equivalent to <a href="#installed-1"><tt>installed(all)</tt></a>.</p>
+
+
+<h3 class="function"><a name="installed-1">installed/1</a></h3>
+<div class="spec">
+<p><tt>installed(Side) -&gt; string()</tt>
+<ul class="definitions"><li><tt>Side = lib | releases | all</tt></li>
+</ul></p>
+</div><p>
+   Returns a list of packages that are currently installed.</p>
+
+<h3 class="function"><a name="outdated_apps-0">outdated_apps/0</a></h3>
+<div class="spec">
+<p><tt>outdated_apps() -&gt; {ok, OutdatedApps}</tt></p>
+</div><p>Equivalent to <a href="#outdated_apps-1"><tt>outdated_apps(Repos)</tt></a>.</p>
+
+
+<h3 class="function"><a name="outdated_apps-1">outdated_apps/1</a></h3>
+<div class="spec">
+<p><tt>outdated_apps(Repo::Repos) -&gt; {ok, OutdatedApps}</tt>
+<ul class="definitions"><li><tt>Repos = [string()] | Repo</tt></li>
+</ul></p>
+</div><p>Display all currently installed applications that have available updates.</p>
+
+<h3 class="function"><a name="outdated_releases-0">outdated_releases/0</a></h3>
+<div class="spec">
+<p><tt>outdated_releases() -&gt; {ok, OutdatedReleases}</tt></p>
+</div><p>Equivalent to <a href="#outdated_releases-1"><tt>outdated_releases(Repos)</tt></a>.</p>
+
+
+<h3 class="function"><a name="outdated_releases-1">outdated_releases/1</a></h3>
+<div class="spec">
+<p><tt>outdated_releases(Repo::Repos) -&gt; {ok, OutdatedReleases}</tt>
+<ul class="definitions"><li><tt>Repos = [repo] | <a href="#type-repo">repo()</a></tt></li>
+</ul></p>
+</div><p>Display all currently installed releases that have available updates.</p>
+
+<h3 class="function"><a name="publish-0">publish/0</a></h3>
+<div class="spec">
+<p><tt>publish() -&gt; ok | {error, Reason}</tt></p>
+</div><p>
+   Publish from within a sinan project structure. This will publish
+   all applications as well as any releases that have been built.</p>
+
+<h3 class="function"><a name="publish-1">publish/1</a></h3>
+<div class="spec">
+<p><tt>publish(PackageDir::AppDir) -&gt; ok | {error, Reason}</tt></p>
+</div><p>Equivalent to <a href="#publish-2"><tt>publish(DefaultRepos, AppDir)</tt></a>.</p>
+
+
+<h3 class="function"><a name="publish-2">publish/2</a></h3>
+<div class="spec">
+<p><tt>publish(PackageDir, Timeout) -&gt; ok | {error, Reason}</tt></p>
+</div><p>Equivalent to <a href="#publish-3"><tt>publish(Repos, PackageDir, Timeout)</tt></a>.</p>
+
+
+<h3 class="function"><a name="publish-3">publish/3</a></h3>
+<div class="spec">
+<p><tt>publish(Repo::Repos, PackageDir::AppDir, Timeout) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repo = string() | atom()</tt></li>
+<li><tt>AppDir = string() | atom()</tt></li>
+<li><tt>Timeout = <a href="#type-timeout">timeout()</a></tt></li>
+</ul></p>
+</div><p>
+   Publishes a pre-built generic application or a release to a remote unguarded repository. A generic application
+   typically consists of erlang object code and possibly other platform independent code.
+   This code is then available for immediate use by any application is erlware repo compatible such as Sinan.
+ </p>
+
+<h3 class="function"><a name="remove_app-1">remove_app/1</a></h3>
+<div class="spec">
+<p><tt>remove_app(AppName) -&gt; ok</tt>
+<ul class="definitions"><li><tt>AppName = string()</tt></li>
+</ul></p>
+</div><p>
+   Remove all versions of an installed application.</p>
+
+<h3 class="function"><a name="remove_app-2">remove_app/2</a></h3>
+<div class="spec">
+<p><tt>remove_app(AppName, AppVsn) -&gt; ok</tt>
+<ul class="definitions"><li><tt>AppName = string()</tt></li>
+<li><tt>AppVsn = string() | integer()</tt></li>
+</ul></p>
+</div><p>
+   Remove an installed application.</p>
+
+<h3 class="function"><a name="remove_publish_repo-1">remove_publish_repo/1</a></h3>
+<div class="spec">
+<p><tt>remove_publish_repo(Repo) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repo = string() | atom()</tt></li>
+</ul></p>
+</div><p>Remove a repository from the list of repos to fetch from.</p>
+
+<h3 class="function"><a name="remove_release-1">remove_release/1</a></h3>
+<div class="spec">
+<p><tt>remove_release(RelName) -&gt; ok</tt>
+<ul class="definitions"><li><tt>RelName = string()</tt></li>
+</ul></p>
+</div><p>
+   Remove all versions of an installed release.</p>
+
+<h3 class="function"><a name="remove_release-2">remove_release/2</a></h3>
+<div class="spec">
+<p><tt>remove_release(RelName, RelVsn) -&gt; ok</tt>
+<ul class="definitions"><li><tt>RelName = string()</tt></li>
+<li><tt>RelVsn = string() | atom() | integer()</tt></li>
+</ul></p>
+</div><p>
+   Remove an installed release.</p>
+
+<h3 class="function"><a name="remove_repo-1">remove_repo/1</a></h3>
+<div class="spec">
+<p><tt>remove_repo(Repo) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repo = string() | atom()</tt></li>
+</ul></p>
+</div><p>Remove a repository from the list of repos to fetch from.</p>
+
+<h3 class="function"><a name="search-0">search/0</a></h3>
+<div class="spec">
+<p><tt>search() -&gt; string()</tt></p>
+</div><p>Equivalent to <a href="#search-4"><tt>search(Repos, both, regexp, ".*")</tt></a>.</p>
+
+
+<h3 class="function"><a name="search-1">search/1</a></h3>
+<div class="spec">
+<p><tt>search(SearchString) -&gt; string()</tt></p>
+</div><p>Equivalent to <a href="#search-4"><tt>search(Repos, both, normal, SearchString)</tt></a>.</p>
+
+
+<h3 class="function"><a name="search-2">search/2</a></h3>
+<div class="spec">
+<p><tt>search(SearchType, SearchString) -&gt; string()</tt></p>
+</div><p>Equivalent to <a href="#search-5"><tt>search(Repos, ConfigTargetErtsVsns, both, SearchType,
+       SearchString)</tt></a>.</p>
+
+
+<h3 class="function"><a name="search-4">search/4</a></h3>
+<div class="spec">
+<p><tt>search(TargetErtsVsns::TargetErtsVsn, Side, SearchType, SearchString) -&gt; string()</tt></p>
+</div><p>Equivalent to <a href="#search-5"><tt>search(Repos, TargetErtsVsn, both, SearchType,
+       SearchString)</tt></a>.</p>
+
+
+<h3 class="function"><a name="search-5">search/5</a></h3>
+<div class="spec">
+<p><tt>search(Repo::Repos, TargetErtsVsns, Side, SearchType, SearchString) -&gt; string()</tt>
+<ul class="definitions"><li><tt>Repos = list()</tt></li>
+<li><tt>Side = lib | releases | both</tt></li>
+<li><tt>SearchType = regexp | normal</tt></li>
+<li><tt>SearchString = string() | atom()</tt></li>
+</ul></p>
+</div><p>
+   Returns a list of packages.</p>
+
+<h3 class="function"><a name="set_preferred_erts_vsn-1">set_preferred_erts_vsn/1</a></h3>
+<div class="spec">
+<p><tt>set_preferred_erts_vsn(PreferrredErtsVsn) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repo = string() | atom()</tt></li>
+</ul></p>
+</div><p>Set the preferred erts vsn for Faxien.  This is the highest erts vsn faxien will interact with automatically.</p>
+
+<h3 class="function"><a name="set_request_timeout-1">set_request_timeout/1</a></h3>
+<div class="spec">
+<p><tt>set_request_timeout(Timeout::<a href="#type-timeout">timeout()</a>) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repo = string() | atom()</tt></li>
+</ul></p>
+</div><p>Set repository to publish to.</p>
+
+<h3 class="function"><a name="show_preferred_erts_vsn-0">show_preferred_erts_vsn/0</a></h3>
+<div class="spec">
+<p><tt>show_preferred_erts_vsn() -&gt; {ok, <a href="#type-timeout">timeout()</a>} | {error, no_preferred_erts_vsn}</tt></p>
+</div><p>Set the preferred erts vsn for Faxien.</p>
+
+<h3 class="function"><a name="show_publish_repos-0">show_publish_repos/0</a></h3>
+<div class="spec">
+<p><tt>show_publish_repos() -&gt; {ok, list()}</tt></p>
+</div><p>Show the list of publish repos that faxien is currently configured to publish to.</p>
+
+<h3 class="function"><a name="show_repos-0">show_repos/0</a></h3>
+<div class="spec">
+<p><tt>show_repos() -&gt; {ok, list()}</tt></p>
+</div><p>Show the list of repos that faxien is currently configured to fetch from.</p>
+
+<h3 class="function"><a name="show_request_timeout-0">show_request_timeout/0</a></h3>
+<div class="spec">
+<p><tt>show_request_timeout() -&gt; {ok, <a href="#type-timeout">timeout()</a>} | {error, no_request_timeout}</tt></p>
+</div><p>Show the faxien remote request timeout.</p>
+
+<h3 class="function"><a name="translate_version-3">translate_version/3</a></h3>
+<div class="spec">
+<p><tt>translate_version(Type, ToType, Version) -&gt; {ok, TranslatedVsn} | error</tt>
+<ul class="definitions"><li><tt>Type = compiler | erts | erlang</tt></li>
+<li><tt>ToType = compiler | erts | erlang</tt></li>
+<li><tt>Version = string()</tt></li>
+</ul></p>
+</div><p>translate_version</p>
+
+<h3 class="function"><a name="upgrade_all_apps-0">upgrade_all_apps/0</a></h3>
+<div class="spec">
+<p><tt>upgrade_all_apps() -&gt; any()</tt></p>
+</div>
+
+<h3 class="function"><a name="upgrade_all_apps-1">upgrade_all_apps/1</a></h3>
+<div class="spec">
+<p><tt>upgrade_all_apps(Repo::Repos) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repos = [string()] | atom()</tt></li>
+</ul></p>
+</div><p>upgrade a all installed applications.
+  <pre>
+  Examples:
+   upgrade_all_apps(["http://erlware.org/stable", "http://erlwaremirror.org/stable"]).
+  or
+   upgrade_all_apps('http://erlware.org/stable', "usr/local/erlware").
+  </pre></p>
+
+<h3 class="function"><a name="upgrade_all_releases-0">upgrade_all_releases/0</a></h3>
+<div class="spec">
+<p><tt>upgrade_all_releases() -&gt; ok | {error, Reason}</tt></p>
+</div><p>Equivalent to <a href="#upgrade_all_releases-1"><tt>upgrade_all_releases(Repos)</tt></a>.</p>
+
+
+<h3 class="function"><a name="upgrade_all_releases-1">upgrade_all_releases/1</a></h3>
+<div class="spec">
+<p><tt>upgrade_all_releases(Repo::Repos) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repos = [string()] | atom()</tt></li>
+</ul></p>
+</div><p>upgrade_all a all installed releases.
+  <pre>
+  Examples:
+   upgrade_all_releases(["http://erlware.org/stable", "http://erlwaremirror.org/stable"]).
+  or
+   upgrade_all_releases('http://erlware.org/stable').
+  </pre></p>
+
+<h3 class="function"><a name="upgrade_app-1">upgrade_app/1</a></h3>
+<div class="spec">
+<p><tt>upgrade_app(AppName) -&gt; ok | {error, Reason}</tt></p>
+</div><p>Equivalent to <a href="#upgrade_app-2"><tt>upgrade_app(Repos, AppName)</tt></a>.</p>
+
+
+<h3 class="function"><a name="upgrade_app-2">upgrade_app/2</a></h3>
+<div class="spec">
+<p><tt>upgrade_app(Repo::Repos, AppName) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repos = [string()] | atom()</tt></li>
+<li><tt>AppName = string() | atom()</tt></li>
+</ul></p>
+</div><p>upgrade a single application.
+  <pre>
+  Examples:
+   upgrade_app(["http://erlware.org/stable", "http://erlwaremirror.org/stable"], faxien, "usr/local/erlware").
+  or
+   upgrade_app('http://erlware.org/stable', faxien, "usr/local/erlware").
+  </pre></p>
+
+<h3 class="function"><a name="upgrade_release-1">upgrade_release/1</a></h3>
+<div class="spec">
+<p><tt>upgrade_release(RelName) -&gt; ok | {error, Reason}</tt></p>
+</div><p>Equivalent to <a href="#upgrade_release-2"><tt>upgrade_release(Repos, RelName)</tt></a>.</p>
+
+
+<h3 class="function"><a name="upgrade_release-2">upgrade_release/2</a></h3>
+<div class="spec">
+<p><tt>upgrade_release(Repo::Repos, RelName) -&gt; ok | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Repos = [string()] | atom()</tt></li>
+<li><tt>RelName = string() | atom()</tt></li>
+</ul></p>
+</div><p>upgrade a single release.
+  <pre>
+  Examples:
+   upgrade_release(["http://erlware.org/stable", "http://erlwaremirror.org/stable"], faxien, "usr/local/erlware").
+  or
+   upgrade_release('http://erlware.org/stable', faxien, "usr/local/erlware").
+  </pre></p>
+
+<h3 class="function"><a name="version-0">version/0</a></h3>
+<div class="spec">
+<p><tt>version() -&gt; string()</tt></p>
+</div><p>
+   Return the version of the current Faxien release.</p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc, May 10 2009, 10:18:47.</i></p>
+</body>
+</html>

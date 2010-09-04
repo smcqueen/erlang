@@ -1,0 +1,32 @@
+build_dir : _build,
+
+ignore_dirs : ["."],
+
+ignore_apps : [],
+
+default_flavor: development,
+
+flavors : {
+
+   development : {
+      build : {
+            compile_args : "+debug_info -W1"
+     }
+   },
+
+   release : {
+      build : {
+           compile_args : "-DNOTEST=1 -W1"
+      }
+   }
+
+
+},
+
+
+default_task :  build,
+
+config_dir : "config"
+
+
+

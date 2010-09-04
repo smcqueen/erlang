@@ -1,0 +1,3 @@
+{application,faxien}.
+{packages,[]}.
+{modules,[fax_install,fax_manage,fax_publish,fax_put,fax_util,faxien]}.

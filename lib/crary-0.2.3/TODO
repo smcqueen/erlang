@@ -1,0 +1,60 @@
+* mark @private everything that users shouldn't see (or somehow tag that
+  they usually won't want to call these directly)
+* call proplists:compact() to speed things up
+* make sure we support file upload
+* credit iserve
+* should access logging be separate (a handler, or called by handlers)
+* is the server suppose to respond with the same vsn or the highest it supports?
+* should there be a limit to the number of connections allowed at once?
+* rewrite chunked body reader (see todo in crary_body)
+* look into in-file 'todo's
+* create example that uses put/post (counter?)
+* avoid denial of services dos (max header lengths, max line lengths,
+  max body chunk lengths, etc)
+* logging
+  * access
+  * error?
+* methods: head, put, post,
+* can the controller pass the body size (or "chunked") to the sock so the sock
+  can limit the amount that can be read
+* propogate timeouts to the right places in crary_sock
+* transfer codings (3.6)
+  + chunked
+  + identity
+  + gzip
+  + compress
+  + deflate
+* absolute uris in http request line (ignore host header, but require it)
+* throttling
+* would it be faster to buffer and write out chunks when the buffer is
+  full instead of writing out a chunk for each write(). also allows easier
+  error handling
+* allow hostname to be configured, fix crary:uri() to fall back on that (http 1.0)
+* version not supported error
+* re-read rfc
+* make sure that exceptions are consistent and documented
+* make sure we aren't ending up with stale procs
+  * port is linked to writer, so we shouldn't leak file descriptors if writer
+    gets shut down
+* test chunked put
+* allow internal server errors and stuff to be overriden
+* allow internal server errors and stuff to be configured (ie is stack shown, etc)
+* document how to use port 80 and not run as root on various operating systems
+
+potential modules:
+  * webdav
+  * fastcgi, cgi, scgi
+  * mod_proxy
+  * mod_rewrite
+  * mod_auth
+  * compression
+  * memcached
+  * ssl
+  * cache
+  * mod status (console of server status/state)
+  * mod userdir
+  * mod evasive (limit hosts per ip)
+  * crary replacements for appmon, pman, etop, et_viewer, etc <----------
+
+seperate projects:
+  * url library
